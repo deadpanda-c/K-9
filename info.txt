@@ -1,0 +1,6 @@
+model 3D: https://www.thingiverse.com/thing:6299820
+
+iot list: https://www.ez-robot.com/robot-sensors-and-accessories.html
+
+servo controller: iotiny
+ultrasonic sensor: https://www.ez-robot.com/store/p15/ultrasonic-sensor.html

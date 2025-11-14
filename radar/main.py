@@ -1,8 +1,8 @@
 import RPi.GPIO as GPIO
 import time
 
-def distance():
-  while GPIO.input(ECHO) == 0:
+def distance(trig, echo):
+  while GPIO.input(echo) == 0:
     pass
   pulse_start = time.time()
   while GPIO.input(ECHO) == 1:
@@ -33,7 +33,7 @@ if __name__ == "__main__":
       GPIO.output(TRIG, True)
       time.sleep(0.00001)
       GPIO.output(TRIG, False)
-      distance()
+      distance(TRIG, ECHO)
       time.sleep(0.5)
   except KeyboardInterrupt:
     GPIO.cleanup()

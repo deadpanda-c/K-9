@@ -1,0 +1,13 @@
+# Flask Web Server + SocketIO
+Flask==3.0.3
+Flask-SocketIO==5.3.6
+
+# GPIO (optional, usually pre-installed on Pi)
+RPi.GPIO==0.7.1
+
+# Debug mocking (optional)
+# Mock.GPIO==0.1.7  # Alternative to our gpio_mock.py
+
+# Development tools (optional)
+python-dotenv==1.0.1
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🤖 Robot Controller</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Robot Remote Control</h1>
+        
+        <div class="distance">
+            Distance: <span id="distance">0.0 cm</span>
+        </div>
+        
+        <div class="status">
+            <strong>Motors:</strong> <span id="motor-status">stopped</span> | 
+            <strong>Mode:</strong> <span id="mode">LIVE</span>
+        </div>
+        
+        <div class="controls">
+            <button class="forward" onclick="sendCommand('forward')">FORWARD</button>
+            <button class="stop" onclick="sendCommand('stop')">STOP</button>
+            <button class="backward" onclick="sendCommand('backward')">BACKWARD</button>
+        </div>
+        
+        <div>Connected: <span id="connection" style="color: lime;">✓</span></div>
+    </div>
+
+    <script>
+        const socket = io();
+        
+        socket.on('connect', () => {
+            document.getElementById('connection').textContent = '✓';
+            document.getElementById('connection').style.color = 'lime';
+        });
+        
+        socket.on('disconnect', () => {
+            document.getElementById('connection').textContent = '✗';
+            document.getElementById('connection').style.color = 'red';
+        });
+        
+        socket.on('status_update', (data) => {
+            document.getElementById('distance').textContent = data.distance + ' cm';
+            document.getElementById('motor-status').textContent = data.motors;
+            document.getElementById('mode').textContent = data.debug ? 'DEBUG' : 'LIVE';
+            document.getElementById('mode').style.color = data.debug ? '#ff9800' : 'lime';
+        });
+        
+        function sendCommand(cmd) {
+            socket.emit('motor_command', cmd);
+        }
+    </script>
+</body>
+</html>
+
